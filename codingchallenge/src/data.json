@@ -1,0 +1,26 @@
+[
+  {
+    "name": "kaikai",
+    "img": "person1.jpg",
+    "age": 13,
+    "love": "40%"
+  },
+  {
+    "name": "chris",
+    "img": "person2.jpg",
+    "age": 23,
+    "love": "10%"
+  },
+  {
+    "name": "ami",
+    "img": "person3.jpg",
+    "age": 21,
+    "love": "42%"
+  },
+  {
+    "name": "kira",
+    "img": "person1.jpg",
+    "age": 43,
+    "love": "80%"
+  }
+]
