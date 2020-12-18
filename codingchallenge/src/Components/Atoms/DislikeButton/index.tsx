@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { DislikeOutlined } from "@ant-design/icons";
+const Wrapper = styled.div``;
 const StyledDislikeButton = styled.button`
   border-radius: 50%;
   padding: 18px;
@@ -11,12 +12,15 @@ const StyledDislikeButton = styled.button`
   -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 `;
-export const DislikeButton = React.memo(() => {
+type Props = {
+  onClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+};
+export const DislikeButton = React.memo((props: Props) => {
   return (
-    <div>
+    <Wrapper onClick={props.onClick}>
       <StyledDislikeButton>
         <DislikeOutlined />
       </StyledDislikeButton>
-    </div>
+    </Wrapper>
   );
 });

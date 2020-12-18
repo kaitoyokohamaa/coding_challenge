@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { LikeOutlined } from "@ant-design/icons";
+const Wrapper = styled.div``;
 const StyledLikeButton = styled.button`
   border-radius: 50%;
   padding: 18px;
@@ -11,12 +12,15 @@ const StyledLikeButton = styled.button`
   -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 `;
-export const LikeButton = React.memo(() => {
+type Props = {
+  onClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+};
+export const LikeButton = React.memo((props: Props) => {
   return (
-    <div>
+    <Wrapper onClick={props.onClick}>
       <StyledLikeButton>
         <LikeOutlined />
       </StyledLikeButton>
-    </div>
+    </Wrapper>
   );
 });
