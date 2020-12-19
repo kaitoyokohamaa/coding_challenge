@@ -5,7 +5,7 @@ import { DislikeButton } from "../../Atoms/DislikeButton";
 import { MatchCard } from "../../Organisms/MatchCard";
 import styled, { keyframes } from "styled-components";
 import UserData from "../../../data.json";
-
+import debounce from "lodash/debounce";
 import { HeartTwoTone } from "@ant-design/icons";
 export const Home = () => {
   const [index, setIndex] = useState<number>(0);
@@ -15,22 +15,30 @@ export const Home = () => {
   const [isDisLikeButtonClicked, setIsDisLikeButtonClicked] = useState<boolean>(
     false
   );
+
+  const swipeRight = keyframes`
+    to {
+      transform: rotate(13deg) translate3d(100%, 0, 0);
+      opacity: 0;
+  }
+  `;
+  const swipeLeft = keyframes`
+    to {
+      transform: rotate(-13deg) translate3d(-100%, 0, 0);
+      opacity: 0;
+  }
+  `;
   const Wrapper = styled.div``;
   const ImgWrapper = styled.div`
     position: relative;
+    animation: ${isLikeButtonClicked && swipeRight}
+      ${isDisLikeButtonClicked && swipeLeft}　2.0s forwards;
+    animation-timing-function: ease-in;
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation: ${isLikeButtonClicked && swipeRight}
+      ${isDisLikeButtonClicked && swipeLeft} 1s forwards;
   `;
-  const swipeRight = keyframes`
-  to {
-    transform: rotate(13deg) translate3d(100%, 0, 0);
-    opacity: 0;
-}
-`;
-  const swipeLeft = keyframes`
-  to {
-    transform: rotate(-13deg) translate3d(-100%, 0, 0);
-    opacity: 0;
-}
-`;
+
   const NoneUser = styled.div`
     height: 400px;
   `;
@@ -47,12 +55,6 @@ export const Home = () => {
   `;
 
   const StyledImg = styled.img`
-    animation: ${isLikeButtonClicked && swipeRight}
-      ${isDisLikeButtonClicked && swipeLeft}　2.0s forwards;
-    animation-timing-function: ease-in;
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation: ${isLikeButtonClicked && swipeRight}
-      ${isDisLikeButtonClicked && swipeLeft} 1s forwards;
     width: 100%;
     height: 400px;
     border-radius: 20px;
@@ -98,7 +100,8 @@ export const Home = () => {
     right: 0;
     margin: auto;
   `;
-  const clickHandler = (i: number, type: string) => {
+  // 何度もクリックするとバグが生ずるのでdebounceを利用
+  const clickHandler = debounce((i: number, type: string) => {
     const currentNumber = i + 1;
 
     if (type === "like") {
@@ -114,15 +117,14 @@ export const Home = () => {
     if (i > 3) {
       alert("ユーザーがいません！リロードしてください");
     }
-  };
-
+  }, 500);
   useEffect(() => {
     //アニメーションを初期化する
     setTimeout(() => {
       setIsLikeButtonClicked(false);
       setIsDisLikeButtonClicked(false);
     }, [1000]);
-  }, [clickHandler]);
+  }, [isLikeButtonClicked, isDisLikeButtonClicked]);
 
   return (
     <Wrapper>
@@ -136,7 +138,7 @@ export const Home = () => {
                 alt={UserData[index].name}
               />
               <Name>
-                <Circle></Circle>
+                <Circle />
                 {UserData[index].name}
                 <Age>{UserData[index].age}歳</Age>
               </Name>
