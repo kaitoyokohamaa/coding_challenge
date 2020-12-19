@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { Card } from "../../Organisms/Card";
 import { LikeButton } from "../../Atoms/LikeButton";
 import { DislikeButton } from "../../Atoms/DislikeButton";
@@ -82,7 +82,7 @@ const Introduction = styled.p`
   right: 0;
   margin: auto;
 `;
-export const Home = () => {
+export const Home: FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [isLikeButtonClicked, setIsLikeButtonClicked] = useState<boolean>(
     false
