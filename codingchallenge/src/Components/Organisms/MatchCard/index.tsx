@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -12,6 +12,6 @@ const Wrapper = styled.div`
   border-radius: 20px;
 `;
 
-export const MatchCard = React.memo((props) => {
+export const MatchCard: FC = React.memo((props) => {
   return <Wrapper>{props.children}</Wrapper>;
 });

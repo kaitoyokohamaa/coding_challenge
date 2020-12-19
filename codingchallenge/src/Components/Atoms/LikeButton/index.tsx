@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { LikeOutlined } from "@ant-design/icons";
 const Wrapper = styled.div``;
@@ -15,7 +15,7 @@ const StyledLikeButton = styled.button`
 type Props = {
   onClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
-export const LikeButton = React.memo((props: Props) => {
+export const LikeButton: FC<Props> = React.memo((props) => {
   return (
     <Wrapper onClick={props.onClick}>
       <StyledLikeButton>
