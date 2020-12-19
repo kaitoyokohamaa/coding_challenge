@@ -1,0 +1,30 @@
+[
+  {
+    "name": "emi",
+    "img": "person1.jpg",
+    "age": 13,
+    "love": "40%",
+    "introduction": "初めまして、よろしくお願いします。"
+  },
+  {
+    "name": "chris",
+    "img": "person2.jpg",
+    "age": 23,
+    "love": "10%",
+    "introduction": "よく笑う人が好きです。"
+  },
+  {
+    "name": "tetu",
+    "img": "person3.jpg",
+    "age": 21,
+    "love": "42%",
+    "introduction": "タバコを吸わない人が好きです。"
+  },
+  {
+    "name": "pairs",
+    "img": "person4.jpg",
+    "age": 43,
+    "love": "80%",
+    "introduction": "私は真面目です。"
+  }
+]
