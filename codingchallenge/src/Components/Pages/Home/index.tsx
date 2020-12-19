@@ -6,6 +6,7 @@ import { MatchCard } from "../../Organisms/MatchCard";
 import styled, { keyframes } from "styled-components";
 import UserData from "../../../data.json";
 
+import { HeartTwoTone } from "@ant-design/icons";
 export const Home = () => {
   const [index, setIndex] = useState<number>(0);
   const [isLikeButtonClicked, setIsLikeButtonClicked] = useState<boolean>(
@@ -15,6 +16,9 @@ export const Home = () => {
     false
   );
   const Wrapper = styled.div``;
+  const ImgWrapper = styled.div`
+    position: relative;
+  `;
   const swipeRight = keyframes`
   to {
     transform: rotate(13deg) translate3d(100%, 0, 0);
@@ -53,6 +57,47 @@ export const Home = () => {
     height: 400px;
     border-radius: 20px;
   `;
+  const Circle = styled.span`
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #43f381;
+    margin-right: 4px;
+  `;
+  const Name = styled.p`
+    position: absolute;
+    bottom: 70px;
+    left: 20px;
+    color: #fff;
+  `;
+  const Age = styled.span`
+    color: #fff;
+    margin-left: 10px;
+  `;
+  const Love = styled.p`
+    position: absolute;
+    bottom: 78px;
+    left: 110px;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 10px;
+  `;
+  const Introduction = styled.p`
+    position: absolute;
+    bottom: 24px;
+    color: #77c5e4;
+    background: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px 0px;
+    font-size: 12px;
+    text-align: center;
+    width: 86%;
+    left: 0;
+    right: 0;
+    margin: auto;
+  `;
   const clickHandler = (i: number, type: string) => {
     const currentNumber = i + 1;
 
@@ -61,7 +106,7 @@ export const Home = () => {
     } else if (type === "dislike") {
       setIsDisLikeButtonClicked(true);
     }
-    // 次の画像に移るのをアニメーションが終わったらに
+    // 次の画像に移るのをアニメーションが終わったらにする
     setTimeout(() => {
       setIndex(currentNumber);
     }, [1000]);
@@ -85,7 +130,22 @@ export const Home = () => {
         <Title>お相手からのいいね！</Title>
         <MatchCard>
           {index < 4 ? (
-            <StyledImg src={`/Img/${UserData[index].img}`} />
+            <ImgWrapper>
+              <StyledImg
+                src={`/Img/${UserData[index].img}`}
+                alt={UserData[index].name}
+              />
+              <Name>
+                <Circle></Circle>
+                {UserData[index].name}
+                <Age>{UserData[index].age}歳</Age>
+              </Name>
+              <Love>
+                <HeartTwoTone twoToneColor="#eb2f96" />
+                {UserData[index].love}
+              </Love>
+              <Introduction>{UserData[index].introduction}</Introduction>
+            </ImgWrapper>
           ) : (
             <NoneUser />
           )}
