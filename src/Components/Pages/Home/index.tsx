@@ -6,7 +6,6 @@ import { MatchCard } from "../../Organisms/MatchCard";
 import styled, { keyframes } from "styled-components";
 import UserData from "../../../data.json";
 import debounce from "lodash/debounce";
-import { HeartTwoTone } from "@ant-design/icons";
 
 const swipeRight = keyframes`
 to {
@@ -59,14 +58,7 @@ const Age = styled.span`
   color: #fff;
   margin-left: 10px;
 `;
-const Love = styled.p`
-  position: absolute;
-  bottom: 78px;
-  left: 110px;
-  color: #fff;
-  margin-left: 10px;
-  font-size: 10px;
-`;
+
 const Introduction = styled.p`
   position: absolute;
   bottom: 24px;
@@ -82,6 +74,7 @@ const Introduction = styled.p`
   right: 0;
   margin: auto;
 `;
+
 export const Home: FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [isLikeButtonClicked, setIsLikeButtonClicked] = useState<boolean>(
@@ -111,6 +104,7 @@ export const Home: FC = () => {
       setIsDisLikeButtonClicked(true);
     }
     // 次の画像に移るのをアニメーションが終わったらにする
+
     setTimeout(() => {
       setIndex(currentNumber);
     }, 1000);
@@ -119,8 +113,10 @@ export const Home: FC = () => {
       alert("ユーザーがいません！リロードしてください");
     }
   }, 500);
+
   useEffect(() => {
     //アニメーションを初期化する
+
     setTimeout(() => {
       setIsLikeButtonClicked(false);
       setIsDisLikeButtonClicked(false);
@@ -143,10 +139,7 @@ export const Home: FC = () => {
                 {UserData[index].name}
                 <Age>{UserData[index].age}歳</Age>
               </Name>
-              <Love>
-                <HeartTwoTone twoToneColor="#eb2f96" />
-                {UserData[index].love}
-              </Love>
+
               <Introduction>{UserData[index].introduction}</Introduction>
             </ImgWrapper>
           ) : (
