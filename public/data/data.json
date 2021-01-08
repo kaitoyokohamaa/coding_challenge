@@ -1,0 +1,26 @@
+[
+  {
+    "name": "えみ",
+    "img": "person1.jpg",
+    "age": 13,
+    "introduction": "初めまして、よろしくお願いします。"
+  },
+  {
+    "name": "かれん",
+    "img": "person2.jpg",
+    "age": 23,
+    "introduction": "よく笑う人が好きです。"
+  },
+  {
+    "name": "あい",
+    "img": "person3.jpg",
+    "age": 21,
+    "introduction": "タバコを吸わない人が好きです。"
+  },
+  {
+    "name": "ペア子",
+    "img": "person4.jpg",
+    "age": 43,
+    "introduction": "私は真面目です。"
+  }
+]
