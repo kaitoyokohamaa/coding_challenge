@@ -4,7 +4,7 @@ import { LikeButton } from "../../Atoms/LikeButton";
 import { DislikeButton } from "../../Atoms/DislikeButton";
 import { MatchCard } from "../../Organisms/MatchCard";
 import styled, { keyframes } from "styled-components";
-import UserData from "../../../data.json";
+
 import debounce from "lodash/debounce";
 
 const swipeRight = keyframes`
@@ -52,9 +52,11 @@ const Name = styled.p`
   position: absolute;
   bottom: 70px;
   left: 20px;
+  font-weight: bold;
   color: #fff;
 `;
 const Age = styled.span`
+  font-weight: bold;
   color: #fff;
   margin-left: 10px;
 `;
@@ -75,6 +77,13 @@ const Introduction = styled.p`
   margin: auto;
 `;
 
+type Data = {
+  name: string;
+  age: number;
+  introduction: string;
+  img: string;
+};
+
 export const Home: FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [isLikeButtonClicked, setIsLikeButtonClicked] = useState<boolean>(
@@ -83,6 +92,9 @@ export const Home: FC = () => {
   const [isDisLikeButtonClicked, setIsDisLikeButtonClicked] = useState<boolean>(
     false
   );
+  const [users, setUsers] = useState<[Data]>([
+    { name: "", age: 0, img: "", introduction: "" },
+  ]);
 
   const ImgWrapper = styled.div`
     position: relative;
@@ -113,10 +125,27 @@ export const Home: FC = () => {
       alert("ユーザーがいません！リロードしてください");
     }
   }, 500);
+  if (users) {
+    console.log(users[index]?.name);
+  }
+  useEffect(() => {
+    fetch(`/data/data.json`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((_response) => _response.json())
+      .then((json) => {
+        setUsers(json);
+      })
+      .catch((err) => {
+        console.log("Error Reading data " + err);
+      });
+  }, []);
 
   useEffect(() => {
     //アニメーションを初期化する
-
     setTimeout(() => {
       setIsLikeButtonClicked(false);
       setIsDisLikeButtonClicked(false);
@@ -128,19 +157,19 @@ export const Home: FC = () => {
       <Card>
         <Title>お相手からのいいね！</Title>
         <MatchCard>
-          {index < 4 ? (
+          {index < 4 && users ? (
             <ImgWrapper>
               <StyledImg
-                src={`/Img/${UserData[index].img}`}
-                alt={UserData[index].name}
+                src={`/Img/${users[index].img}`}
+                alt={users[index].name}
               />
               <Name>
                 <Circle />
-                {UserData[index].name}
-                <Age>{UserData[index].age}歳</Age>
+                {users[index].name}
+                <Age>{users[index].age}歳</Age>
               </Name>
 
-              <Introduction>{UserData[index].introduction}</Introduction>
+              <Introduction>{users[index].introduction}</Introduction>
             </ImgWrapper>
           ) : (
             <NoneUser />
